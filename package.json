@@ -1,0 +1,38 @@
+{
+	"name": "preentrega2aguilarchira",
+	"version": "1.0.0",
+	"main": "app.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon app.js"
+	},
+	"keywords": [
+		"Express",
+		"NodeJS"
+	],
+	"author": "Dalvin Vicente Aguilar Chira",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cookie-parser": "^1.4.7",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.0",
+		"express-handlebars": "^8.0.1",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.7.3",
+		"mongoose-paginate-v2": "^1.8.5",
+		"nodemon": "^3.1.7",
+		"passport": "^0.7.0",
+		"passport-jwt": "^4.0.1",
+		"passport-local": "^1.0.0",
+		"socket.io": "^4.8.0"
+	},
+	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
+		"@types/passport": "^1.0.17",
+		"@types/passport-jwt": "^4.0.1",
+		"@types/passport-local": "^1.0.38"
+	}
+}
