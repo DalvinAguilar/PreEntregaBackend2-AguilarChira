@@ -1,13 +1,14 @@
 # PreEntrega 2 - Backend Coderhouse - Aguilar Chira
 
-Este proyecto es una aplicación de servidor desarrollada con Node.js y Express, utilizando Handlebars para las plantillas y Socket.IO para la implementación de WebSockets. La aplicación permite una gestión en tiempo real de productos en una interfaz amigable y dinámica.
+Este proyecto es una API RESTful desarrollada con Node.js y Express, que utiliza Passport.js para la autenticación, JWT para manejo de sesiones y Handlebars para las vistas. Está diseñado para manejar productos, carritos de compras y usuarios, permitiendo registro, login y autenticación en tiempo real.
 
 ## Características
 
 -   **Express.js**: Configuración del servidor y manejo de rutas.
+-   **Passport.js**: Autenticación local (registro y login) y autenticación con JWT.
+-   **JWT**: Uso de JSON Web Tokens para mantener la sesión del usuario.
 -   **Handlebars.js**: Motor de plantillas para generar las vistas de manera dinámica.
--   **Socket.IO**: Comunicación en tiempo real para actualizar la lista de productos sin necesidad de recargar la página.
--   **Express Router**: Organización de las rutas en módulos.
+-   **Mongoose**: Conexión y manejo de base de datos MongoDB.
 -   **Nodemon**: Para recargar automáticamente el servidor durante el desarrollo.
 -   **Carpeta pública**: Contiene los archivos estáticos como CSS y JavaScript.
 
@@ -33,13 +34,13 @@ Este proyecto es una aplicación de servidor desarrollada con Node.js y Express,
 
 ## Scripts
 
--   Iniciar el servidor con nodemon:
+-   **Iniciar el servidor con nodemon**:
 
     ```bash
     npm run dev
     ```
 
--   Iniciar el servidor sin nodemon:
+-   **Iniciar el servidor sin nodemon**:
 
     ```bash
     npm start
@@ -56,14 +57,32 @@ La aplicación utiliza **Handlebars** como motor de plantillas para generar el c
 
 El layout principal es `main.handlebars`, el cual contiene la estructura base HTML y es reutilizado por las diferentes vistas.
 
-### 2. Socket.IO - Comunicación en tiempo real
+### 2. Autenticación con Passport.js y JWT
 
-Se implementa **Socket.IO** para manejar la comunicación en tiempo real entre el servidor y el cliente. Esta funcionalidad permite:
+Se implementan varias rutas para manejar el registro de usuarios, el login y la autenticación mediante JWT.
 
--   Actualizar la lista de productos en tiempo real.
--   Enviar eventos del servidor al cliente cuando se añaden, modifican o eliminan productos.
+#### Registro de usuarios
 
-El archivo `realTimeProducts.js` maneja los eventos de WebSocket en el lado del cliente.
+La ruta `/api/sessions/register` permite registrar a nuevos usuarios proporcionando los siguientes parámetros:
+
+-   `first_name`
+-   `last_name`
+-   `email`
+-   `age`
+-   `password`
+
+#### Login de usuarios
+
+La ruta `/api/sessions/login` permite a los usuarios iniciar sesión proporcionando los siguientes parámetros:
+
+-   `email`
+-   `password`
+
+Se genera un JWT en caso de éxito, que se envía como una cookie `jwt`.
+
+#### Ver el usuario actual
+
+La ruta `/api/sessions/current` permite verificar los datos del usuario autenticado utilizando el JWT almacenado en las cookies. Para acceder a esta ruta, el usuario debe estar autenticado.
 
 ### 3. Estructura del proyecto
 
@@ -75,7 +94,10 @@ src/
 │   └── styles.css
 │
 ├── routes/               # Definición de las rutas
-│   └── views.router.js
+│   ├── products.router.js
+│   ├── cart.router.js
+│   ├── views.router.js
+│   └── sessions.router.js
 │
 ├── views/                # Plantillas de Handlebars
 │   ├── home.handlebars
@@ -83,25 +105,39 @@ src/
 │   └── layouts/
 │       └── main.handlebars
 │
+├── controllers/          # Controladores para manejar las rutas
+│   └── sessionsController.js
+│
+├── models/               # Modelos de datos (Usuario, Producto, Carrito)
+│   ├── users.model.js
+│   ├── products.model.js
+│   └── carts.model.js
+│
+├── config/               # Configuración (Passport, JWT)
+│   └── passport.config.js
+│
 └── app.js                # Archivo principal para iniciar el servidor
 ```
 
 ### 4. Rutas
 
--   **/**: Muestra la página de inicio con la lista de productos.
--   **/realtimeproducts**: Muestra la vista en tiempo real para gestionar los productos utilizando WebSocket.
+/api/products: Muestra la lista de productos disponibles.
+/api/carts: Muestra la lista de carritos.
+/api/sessions/register: Registra un nuevo usuario.
+/api/sessions/login: Inicia sesión con el usuario.
+/api/sessions/current: Obtiene los datos del usuario autenticado.
 
-## Dependencias
+### 5. Seguridad
 
--   [Express](https://expressjs.com/)
--   [Handlebars](https://handlebarsjs.com/)
--   [Socket.IO](https://socket.io/)
--   [Nodemon](https://nodemon.io/)
+Se utiliza JWT para gestionar las sesiones de los usuarios, almacenando el token en una cookie HTTP-Only para mayor seguridad.
 
-## Contribuciones
+### 6. Dependencias
 
-Las contribuciones son bienvenidas. Si tienes sugerencias o encuentras algún problema, por favor crea un issue o realiza un pull request.
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT.
+Express
+Handlebars
+Nodemon
+Passport
+bcrypt
+jsonwebtoken
+cookie-parser
+mongoose
