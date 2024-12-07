@@ -1,4 +1,4 @@
-# PreEntrega 2 - Backend Coderhouse - Aguilar Chira
+# PreEntrega 1 - Backend 2 Coderhouse - Aguilar Chira
 
 Este proyecto es una API RESTful desarrollada con Node.js y Express, que utiliza Passport.js para la autenticación, JWT para manejo de sesiones y Handlebars para las vistas. Está diseñado para manejar productos, carritos de compras y usuarios, permitiendo registro, login y autenticación en tiempo real.
 
