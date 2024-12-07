@@ -89,34 +89,41 @@ La ruta `/api/sessions/current` permite verificar los datos del usuario autentic
 ```bash
 src/
 │
-├── public/               # Archivos estáticos (CSS, JS)
-│   ├── realTimeProducts.js
-│   └── styles.css
-│
-├── routes/               # Definición de las rutas
-│   ├── products.router.js
-│   ├── cart.router.js
-│   ├── views.router.js
-│   └── sessions.router.js
-│
-├── views/                # Plantillas de Handlebars
-│   ├── home.handlebars
-│   ├── realTimeProducts.handlebars
-│   └── layouts/
-│       └── main.handlebars
+├── config/               # Configuración (Passport, JWT)
+│   └── passport.config.js
 │
 ├── controllers/          # Controladores para manejar las rutas
+│   ├── cartManager.js
+│   ├── productManager.js
 │   └── sessionsController.js
+│
+├── middlewares/          # Middlewares para validación
+│   └── auth.middleware.js
 │
 ├── models/               # Modelos de datos (Usuario, Producto, Carrito)
 │   ├── users.model.js
 │   ├── products.model.js
 │   └── carts.model.js
 │
-├── config/               # Configuración (Passport, JWT)
-│   └── passport.config.js
+├── public/               # Archivos estáticos (CSS, JS)
+│   └── styles.css
 │
-└── app.js                # Archivo principal para iniciar el servidor
+├── routes/               # Definición de las rutas
+│   ├── cart.router.js
+│   ├── products.router.js
+│   ├── sessions.router.js
+│   └── views.router.js
+│
+├── utils/                # Utilidades (hash, JWT extractor)
+│   ├── hash.js
+│   └── jwtExtractor.js
+│
+└── views/                # Plantillas de Handlebars
+    ├── cartDetail.handlebars
+    ├── index.handlebars
+    ├── productDetail.handlebars
+    └── layouts/
+        └── main.handlebars              # Archivo principal para iniciar el servidor
 ```
 
 ### 4. Rutas
